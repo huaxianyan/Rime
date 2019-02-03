@@ -1,0 +1,30 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# 袖珍简化字拼音额外词库
+#
+# Neko7ina <hua199057+Rime@gmail.com>
+#
+# 部署位置：
+# ~/.config/ibus/rime  (Linux)
+# ~/Library/Rime  (Mac OS)
+# %APPDATA%\Rime  (Windows)
+#
+# 编辑完后重新部署才会生效
+# 「...」以下不能添加备注内容
+
+---
+name: pinyin_simp.extended
+version: "2019.02.02"
+sort: by_weight
+use_preset_vocabulary: false
+import_tables:
+# 袖珍简化字拼音自身词库（主词库）
+  - pinyin_simp
+# 袖珍简化字拼音-英文及中英混输词库
+  - pinyin_simp_cn_en
+# 袖珍简化字拼音-自定义输入习惯词库
+  - pinyin_simp_custom
+# 袖珍简化字拼音基础词库，采用「现代汉语常用词表」，来源 https://github.com/alswl/Rime
+  - pinyin_simp_base
+...

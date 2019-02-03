@@ -1,0 +1,24 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# 袖珍简化字拼音-自定义输入习惯词库
+#
+# Neko7ina <hua199057+Rime@gmail.com>
+#
+# 部署位置：
+# ~/.config/ibus/rime  (Linux)
+# ~/Library/Rime  (Mac OS)
+# %APPDATA%\Rime  (Windows)
+#
+# 编辑完后重新部署才会生效
+# 「...」以下不能添加备注内容
+
+---
+name: pinyin_simp_custom
+version: "2019.02.02"
+sort: by_weight
+use_preset_vocabulary: false
+...
+
+怎么	zm
+这么	zhem

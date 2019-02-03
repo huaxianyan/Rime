@@ -1,0 +1,69 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# 袖珍简化字拼音-英文及中英混输词库
+#
+# Neko7ina <hua199057+Rime@gmail.com>
+#
+# 部署位置：
+# ~/.config/ibus/rime  (Linux)
+# ~/Library/Rime  (Mac OS)
+# %APPDATA%\Rime  (Windows)
+#
+# 编辑完后重新部署才会生效
+# 「...」以下不能添加备注内容
+
+---
+name: pinyin_simp_en
+version: "2019.02.02"
+sort: by_weight
+use_preset_vocabulary: false
+...
+
+哆啦A梦	duo la a meng	100
+Android	android	100
+DNA	dna	100
+DVD	dvd	100
+Linux	linux	100
+QQ	qq	100
+Rime	zhong zhou yun	100
+iPad	i pad	100
+iPod	i pod	100
+Steam	steam	100
+WeGame	we game	100
+Google	google	100
+iOS	i os	100
+Nexus	nexus	100
+Nintendo	nintendo	100
+NSw	nsw	100
+Pixel	pixel	100
+Mac	mac	100
+Chrome	chrome	100
+Windows	windows	100
+AnyDesk	any desk	100
+TeamViewer	team viewer	100
+MacOS	mac os	100
+Shadowsocks	ss	100
+Shadowsocks	shadow socks	100
+Win	win	100
+WireGuard	wire guard	100
+Github	git hub	100
+PushBullet	push bullet	100
+Rime	rime	100
+iPhone	i phone	100
+Azure	azure	100
+iQue	i que	100
+Cloudflare	cloud flare	100
+Cloudflare	cf	100
+Wii U	wii u	100
+Wii	wii	100
+PlayStation	play station	100
+GameCube	game cube	100
+Web	web	100
+Apple	apple	100
+DOTA	dota	100
+DOTA2	dota	100
+Ubuntu	ubuntu	100
+Game	game	100
+OS	os	100
+Arch	arch	100

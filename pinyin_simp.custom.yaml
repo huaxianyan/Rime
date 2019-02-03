@@ -19,7 +19,7 @@ patch:
   engine/filters:
     - uniquifier
 # 默认输入状态为英文
-  "switches/@0/reset": 1
+  "switches/@0/reset": 0
 # 开启拼音纠错
   translator/enable_correction: false
 # 开启自定义短语

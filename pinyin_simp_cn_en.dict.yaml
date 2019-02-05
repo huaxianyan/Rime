@@ -27,12 +27,11 @@ DVD	dvd	100
 Linux	linux	100
 QQ	qq	100
 Rime	zhong zhou yun	100
-iPad	i pad	100
-iPod	i pod	100
+iPad	ipad	100
+iPod	ipod	100
 Steam	steam	100
-WeGame	we game	100
+We	we	100
 Google	google	100
-iOS	i os	100
 Nexus	nexus	100
 Nintendo	nintendo	100
 NSw	nsw	100
@@ -40,30 +39,45 @@ Pixel	pixel	100
 Mac	mac	100
 Chrome	chrome	100
 Windows	windows	100
-AnyDesk	any desk	100
-TeamViewer	team viewer	100
-MacOS	mac os	100
+Any	any	100
+Desk	desk	100
+Team	team	100
+Viewer	viewer	100
 Shadowsocks	ss	100
-Shadowsocks	shadow socks	100
+Shadowsocks	shadowsocks	100
+Socks	socks	100
 Win	win	100
-WireGuard	wire guard	100
-Github	git hub	100
-PushBullet	push bullet	100
+Wire	wire	100
+Guard	guard	100
+Git	git	100
+Hub	hub	100
+Push	push	100
+Bullet	bullet	100
 Rime	rime	100
-iPhone	i phone	100
+iPhone	iphone	100
 Azure	azure	100
-iQue	i que	100
-Cloudflare	cloud flare	100
+iQue	ique	100
+Cloudflare	cloudflare	100
 Cloudflare	cf	100
-Wii U	wii u	100
+Wii U	wiiu	100
 Wii	wii	100
-PlayStation	play station	100
-GameCube	game cube	100
+Play	play	100
+Station	station	100
+Game	game	100
+Cube	cube	100
 Web	web	100
 Apple	apple	100
 DOTA	dota	100
 DOTA2	dota	100
 Ubuntu	ubuntu	100
-Game	game	100
 OS	os	100
 Arch	arch	100
+WiFi	wifi	100
+You	you	100
+Tube	tube	100
+Boy	boy	100
+Advance	advance	100
+Switch	switch	100
+Prime	prime	100
+Retro	retro	100
+Studios	studios	100

@@ -27,5 +27,4 @@ import_tables:
   - custom
 # 袖珍简化字拼音基础词库，采用「现代汉语常用词表」，来源 https://github.com/alswl/Rime
   - pinyin_simp_base
-  - pin
 ...

@@ -18,20 +18,10 @@ patch:
 # 候选去重
   engine/filters:
     - uniquifier
-# 默认输入状态为英文
+# 默认输入状态为中文
   "switches/@0/reset": 0
 # 开启拼音纠错
   translator/enable_correction: false
-# 开启自定义短语
-# 在用户目录下创建 custom_phrase.txt 文件并编辑
-  "engine/translators/@next": table_translator@custom_phrase
-  custom_phrase:
-    dictionary: ""
-    user_dict: custom_phrase
-    db_class: stabledb
-    enable_completion: false
-    enable_sentence: false
-    initial_quality: 1
 # 自定义标点
   punctuator:
     import_preset: default
@@ -51,5 +41,5 @@ patch:
       "=": "="
       "/": "/"
       "\\": "、"
-# 释放「`」键
+# 释放「`」键（同时关闭反查）
   "recognizer/patterns/reverse_lookup": {}

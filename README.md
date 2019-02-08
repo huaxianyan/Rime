@@ -23,7 +23,7 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 - `pinyin_simp.extended.dict.yaml` ：输入方案的词库中心文件，主要功能为引用其他词库，需在输入方案中指定方可使用。
 - `pinyin_simp_base.dict.yaml` ：输入方案的基础词库，由额外词库文件引用使用，来源为项目 [https://github.com/alswl/Rime](https://github.com/alswl/Rime) 中的「现代汉语常用词表」，一般不做修改。
 - `pinyin_simp_cn_en.dict.yaml` ：输入方案的英文及中英混输词库，由额外词库文件引用使用。如需添加新的英文或中英混输词汇，建议编辑此文件。
-- `pinyin_simp_custom.dict.yaml` ：输入方案的自定义短语，由额外词库文件引用使用。如需添加自定义短语，建议编辑此文件。
+- `custom.dict.yaml` ：自定义短语，由额外词库文件引用使用。如需添加自定义短语，建议编辑此文件。
 
 ## 使用方法
 

@@ -21,10 +21,10 @@ use_preset_vocabulary: false
 import_tables:
 # 袖珍简化字拼音自身词库（主词库）
   - pinyin_simp
-# 袖珍简化字拼音-英文及中英混输词库
-  - pinyin_simp_cn_en
-# 自定义短语
-  - custom
+# 英文及中英混输词库
+  - cn_en
+# 袖珍简化字拼音自定义词语
+  - pinyin_simp_custom
 # 袖珍简化字拼音基础词库，采用「现代汉语常用词表」，来源 https://github.com/alswl/Rime
   - pinyin_simp_base
 ...

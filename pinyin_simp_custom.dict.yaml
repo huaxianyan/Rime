@@ -1,7 +1,7 @@
 # Rime dictionary
 # encoding: utf-8
 #
-# 自定义短语
+# 袖珍简化字拼音自定义词语
 #
 # Neko7ina <hua199057+Rime@gmail.com>
 #
@@ -20,5 +20,10 @@ sort: by_weight
 use_preset_vocabulary: false
 ...
 
-怎么	zm
 这么	zhem
+満貫	mangan
+跳満	haneman
+倍満	baiman
+役滿	yakuman
+签有	qian you
+不太有	bu tai you

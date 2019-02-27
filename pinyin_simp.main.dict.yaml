@@ -14,7 +14,7 @@
 # 「...」以下不能添加备注内容
 
 ---
-name: pinyin_simp_main
+name: pinyin_simp.main
 version: "2019.02.27"
 sort: by_weight
 use_preset_vocabulary: false

@@ -21,7 +21,7 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 
 - `pinyin_simp.custom.yaml` ：袖珍简化字拼音方案的自定义修改，包含初始输出状态、符号输入等功能修改，**同时指定了新词库中心文件**，如果需实现其他功能修改请自行增删。
 
-- `pinyin_simp_main.dict.yaml` ：词库中心文件，主要功能为引用其他词库，需在输入方案中指定方可使用。词库内容由 [袖珍简化字拼音](https://github.com/rime/rime-pinyin-simp) 默认字库修改而来。
+- `pinyin_simp.main.dict.yaml` ：词库中心文件，主要功能为引用其他词库，需在输入方案中指定方可使用。词库内容由 [袖珍简化字拼音](https://github.com/rime/rime-pinyin-simp) 默认字库修改而来。
 
 - `pinyin_simp_base.dict.yaml` ：基础词库，由额外词库文件引用使用，来源为项目 [https://github.com/alswl/Rime](https://github.com/alswl/Rime) 中的「现代汉语常用词表」，一般不做修改。
 

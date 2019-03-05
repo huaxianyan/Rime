@@ -14,7 +14,7 @@
 
 patch:
 # 设置主词典
-  "translator/dictionary": pinyin_simp_main
+  "translator/dictionary": pinyin_simp.main
 # 候选去重
   engine/filters:
     - uniquifier

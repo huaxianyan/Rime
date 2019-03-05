@@ -20,86 +20,90 @@ sort: by_weight
 use_preset_vocabulary: false
 ...
 
-哆啦A梦	duo la a meng	1
-Android	android	1
-DNA	dna	1
-DVD	dvd	1
-Linux	linux	1
-QQ	qq	1
-Rime	zhong zhou yun	1
-iPad	ipad	1
-iPod	ipod	1
-Steam	steam	1
-We	we	1
-Google	google	1
-Nexus	nexus	1
-Nintendo	nintendo	1
-NSw	nsw	1
-Pixel	pixel	1
-Mac	mac	1
-Chrome	chrome	1
-Windows	windows	1
-Any	any	1
-Desk	desk	1
-Team	team	1
-Viewer	viewer	1
-Shadowsocks	ss	1
-Shadowsocks	shadowsocks	1
-Socks	socks	1
-Win	win	1
-Wire	wire	1
-Guard	guard	1
-Git	git	1
-Hub	hub	1
-Push	push	1
-Bullet	bullet	1
-Rime	rime	1
-iPhone	iphone	1
-Azure	azure	1
-iQue	ique	1
-Cloudflare	cloudflare	1
-Cloudflare	cf	1
-Wii U	wiiu	1
-Wii	wii	1
-Play	play	1
-Station	station	1
-Game	game	1
-Cube	cube	1
-Web	web	1
-Apple	apple	1
-DOTA	dota	1
-DOTA2	dota	1
-Ubuntu	ubuntu	1
-OS	os	1
-Arch	arch	1
-WiFi	wifi	1
-You	you	1
-Tube	tube	1
-Boy	boy	1
-Advance	advance	1
-Switch	switch	1
-Prime	prime	1
-Retro	retro	1
-Studios	studios	1
-Plus	plus	1
-Magisk	magisk	1
-Dropbox	dropbox	1
-Store	store	1
-Lean	lean	1
-Cloud	cloud	1
-Wallet	wallet	1
-License	license	1
-MacBook	macbook	1
-Deepin	deepin	1
-Air	air	1
-iOS	ios	1
-Join	join	1
-eSIM	esim	1
-Gmail	gmail	1
-Voice	voice	1
-卡拉OK	ka la ok	1
-Python	python	1
-New	new	1
-Pro	pro	1
-Fix	fix	1
-Update	update	1
+哆啦A梦	duo la a meng
+Android	android
+DNA	dna
+DVD	dvd
+Linux	linux
+QQ	qq
+Rime	zhong zhou yun
+iPad	ipad
+iPod	ipod
+Steam	steam
+We	we
+Google	google
+Nexus	nexus
+Nintendo	nintendo
+NSw	nsw
+Pixel	pixel
+Mac	mac
+Chrome	chrome
+Windows	windows
+Any	any
+Desk	desk
+Team	team
+Viewer	viewer
+Shadowsocks	ss
+Shadowsocks	shadowsocks
+Socks	socks
+Win	win
+Wire	wire
+Guard	guard
+Git	git
+Hub	hub
+Push	push
+Bullet	bullet
+Rime	rime
+iPhone	iphone
+Azure	azure
+iQue	ique
+Cloudflare	cloudflare
+Cloudflare	cf
+Wii U	wiiu
+Wii	wii
+Play	play
+Station	station
+Game	game
+Cube	cube
+Web	web
+Apple	apple
+DOTA	dota
+DOTA2	dota
+Ubuntu	ubuntu
+OS	os
+Arch	arch
+WiFi	wifi
+You	you
+Tube	tube
+Boy	boy
+Advance	advance
+Switch	switch
+Prime	prime
+Retro	retro
+Studios	studios
+Plus	plus
+Magisk	magisk
+Dropbox	dropbox
+Store	store
+Lean	lean
+Cloud	cloud
+Wallet	wallet
+License	license
+MacBook	macbook
+Deepin	deepin
+Air	air
+iOS	ios
+Join	join
+eSIM	esim
+Gmail	gmail
+Voice	voice
+卡拉OK	ka la ok
+Python	python
+New	new
+Pro	pro
+Ctrl	ctrl
+Fix	fix
+Update	update
+Boss	boss
+Shift	shift
+Alt	alt

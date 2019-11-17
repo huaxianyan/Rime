@@ -18,8 +18,7 @@ name: pinyin_simp_en
 version: "2019.11.17"
 sort: by_weight
 use_preset_vocabulary: false
-...
-
+---
 Advance	advance
 Air	air
 Alt	alt
@@ -105,3 +104,5 @@ Win	win
 Windows	windows
 Wire	wire
 You	you
+哆啦A梦	duo la a meng
+卡拉OK	ka la ok

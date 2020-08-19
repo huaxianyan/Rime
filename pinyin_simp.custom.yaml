@@ -13,6 +13,10 @@
 # 编辑完后重新部署才会生效
 
 patch:
+# 语言模型数据包
+#  __include: grammar:/hans
+# 修改切换时提示
+  "schema/name": "简体中文"
 # 设置主词典
   "translator/dictionary": pinyin_simp.main
 # 候选去重

@@ -1252,6 +1252,9 @@ import_tables:
 扑	pu	1247
 铺	pu	1930
 普	pu	2269
+呣	m	8
+嘸	m	11
+呒	m	17
 礣	ma	0
 榪	ma	0
 溤	ma	0
@@ -1722,6 +1725,7 @@ import_tables:
 愍	min	25
 敃	min	29
 憫	min	31
+忞	min	50
 悯	min	50
 岷	min	60
 皿	min	73
@@ -2136,6 +2140,7 @@ import_tables:
 裶	fei	1
 蜰	fei	1
 廃	fei	1
+朏	fei	2
 騑	fei	3
 厞	fei	3
 暃	fei	3
@@ -2208,6 +2213,7 @@ import_tables:
 玸	fu	0
 踾	fu	0
 郙	fu	0
+㳇	fu	1
 蜅	fu	1
 鰒	fu	1
 烰	fu	1
@@ -3869,6 +3875,8 @@ import_tables:
 腿	tui	4066
 推	tui	5296
 退	tui	7395
+唔	n	1126
+嗯	n	31982
 餪	nuan	0
 渜	nuan	0
 奻	nuan	3
@@ -14726,6 +14734,7 @@ import_tables:
 沄	yun	6
 勻	yun	6
 煇	yun	7
+赟	yun	10
 贇	yun	10
 氳	yun	10
 纭	yun	13
@@ -15071,6 +15080,7 @@ import_tables:
 卬	yang	6
 怏	yang	7
 暘	yang	8
+旸	yang	8
 蛘	yang	8
 烊	yang	12
 揚	yang	13
@@ -17056,6 +17066,9 @@ import_tables:
 藕	ou	499
 欧	ou	3041
 偶	ou	24864
+噷	hm	6
+唔	ng	1126
+嗯	ng	31982
 粑粑	ba ba	149
 巴巴	ba ba	322
 爸爸	ba ba	9814
@@ -31935,6 +31948,7 @@ import_tables:
 户名	hu ming	122
 护法	hu fa	246
 互访	hu fang	141
+湖㳇	hu fu	1
 护肤	hu fu	496
 湖大	hu da	114
 蝴蝶	hu die	1859

@@ -21,19 +21,19 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 
 - `pinyin_simp.custom.yaml` ：袖珍简化字拼音方案的自定义修改，包含初始输出状态、符号输入等功能修改，**同时指定了新词库中心文件**，如果需实现其他功能修改请自行增删。
 
-- `pinyin_simp.main.dict.yaml` ：词库中心文件，主要功能为引用其他词库，需在输入方案中指定方可使用。核心引用词库内容为 [袖珍简化字拼音](https://github.com/rime/rime-pinyin-simp) 默认方案词库。
+- `pinyin_simp.main.dict.yaml` ：中心词库文件，主要功能为引用其他词库，需在输入方案中指定方可使用。核心引用词库内容为 [袖珍简化字拼音](https://github.com/rime/rime-pinyin-simp) 默认方案词库。
 
-- `cn_en.dict.yaml` ：英文及中英混输词库，由额外词库文件引用使用。如需添加新的英文或中英混输词汇，建议编辑此文件。文件内容大部分是纯英文，可以考虑在朙月拼音中使用以方便繁体中文输入场景。
+- `cn_en.dict.yaml` ：英文及中英混输词库，由中心词库文件引用使用。如需添加新的英文或中英混输词汇，建议编辑此文件。文件内容大部分是纯英文，可以考虑在朙月拼音中使用以方便繁体中文输入场景。
 
-- `pinyin_simp_custom.dict.yaml` ：自定义词语，由额外词库文件引用使用。如需添加自定义短语，建议编辑此文件。
+- `pinyin_simp_custom.dict.yaml` ：自定义词语，由中心词库文件引用使用。如需添加自定义短语，建议编辑此文件。
 
 - `pinyin_simp_pin.txt` ：候选固定，使用另一个翻译器并给极高权重来达到固定候选列表的目的，编辑时请记得给极高权重。
 
   请注意，有时此列表中的字或词在输入时临时组词，将不会录入用户词库。我个人发现此类问题会自行修改自定义词语文件去手动添加，如介意或不需要候选固定请自行修改关闭此功能。
   
-- `xiandaihanyuchangyongcibiao.dict.yaml` ：现代汉语常用词表，由额外词库文件引用使用，来源为项目 [https://github.com/alswl/Rime](https://github.com/alswl/Rime)，一般不做修改。
+- `xiandaihanyuchangyongcibiao.dict.yaml` ：现代汉语常用词表，由中心词库文件引用使用，来源为项目 [https://github.com/alswl/Rime](https://github.com/alswl/Rime)，一般不做修改。
   
-- ``zhwiki.dict.yaml`` ：肥猫词库，由额外词库文件引用使用，来源为项目 [https://github.com/felixonmars/fcitx5-pinyin-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki)，一般不做修改。
+- ``zhwiki.dict.yaml`` ：肥猫词库，由中心词库文件引用使用，来源为项目 [https://github.com/felixonmars/fcitx5-pinyin-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki)，一般不做修改。
 
 ## 使用方法
 

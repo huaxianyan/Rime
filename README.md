@@ -67,4 +67,5 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 
 - 安装 Rime 输入法并安装 [袖珍简化字拼音](https://github.com/rime/rime-pinyin-simp) 方案，使用软件或修改 `default.custom.yaml` 文件加入该方案。
 - 将上述文件复制到 Rime 用户文件夹内。
+- 重新部署。
 -  打开 Rime 方案选单，切换至「袖珍简化字拼音」即可开始使用。

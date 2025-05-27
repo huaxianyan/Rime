@@ -13,29 +13,43 @@
 # 编辑完后重新部署才会生效
 
 patch:
-# 语言模型数据包
-#  __include: grammar:/hans
 # 修改切换时提示
-  "schema/name": "简体中文"
+  "schema/name": "袖珍拼音"
 # 设置主词典
   "translator/dictionary": pinyin_simp.main
-# 候选去重
-  engine/filters:
-    - uniquifier
 # 默认输入状态为中文
-  "switches/@0/reset": 0
+  switches: 
+    - name: ascii_mode
+      states: [ 中, Ａ ]
+      reset: 0
+    - name: traditionalization
+      states: [ 简, 繁 ]
+    - name: ascii_punct
+      states: ["。，", "．，"]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+  traditionalize:
+    option_name: traditionalization
+    opencc_config: s2t.json
+    tips: none
 # 开启拼音纠错
   translator/enable_correction: false
-# 自定义标点
 # 固定候选单字，在用户目录下创建 pinyin_simp_pin.txt 文件并编辑
-  "engine/translators/@next": table_translator@pinyin_simp_pin
-  pinyin_simp_pin:
-    dictionary: ""
-    user_dict: pinyin_simp_pin
-    db_class: stabledb
-    enable_completion: false
-    enable_sentence: false
-    initial_quality: 1
+#  "engine/translators/+": 
+#    - table_translator@pinyin_simp_pin
+#  pinyin_simp_pin:
+#    dictionary: ""
+#    user_dict: pinyin_simp_pin
+#    db_class: stabledb
+#    enable_completion: false
+#    enable_sentence: false
+#    initial_quality: 1
+  "engine/filters/+":
+    - lua_filter@*pin_cand_filter
+    - simplifier@traditionalize
+    - uniquifier
+
+# 自定义标点
   punctuator:
     import_preset: default
     half_shape:
@@ -57,3 +71,18 @@ patch:
       '\': '、'
 # 释放「`」键（同时关闭反查）
   "recognizer/patterns/reverse_lookup": {}
+  
+  pin_cand_filter:
+    __include: pinyin_simp_pin:/list
+  
+  grammar:
+    language: gram/wanxiang-lts-zh-hans
+    collocation_max_length: 8
+    collocation_min_length: 3
+    collocation_penalty: -10
+    non_collocation_penalty: -12
+    weak_collocation_penalty: -24
+    rear_penalty: -30
+  translator/contextual_suggestions: false
+  translator/max_homophones: 5
+  translator/max_homographs: 5

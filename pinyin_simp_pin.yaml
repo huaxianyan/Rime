@@ -1,0 +1,57 @@
+list:
+  # 单编码
+  
+  # 简码
+  - py	朋友
+  - sx	上线
+  - zm	怎么 这么
+  # 常用字
+  - ba	吧
+  - bang	帮
+  - cuo	错
+  - dui	对
+  - gan	干
+  - ge	个
+  - hong	红
+  - ji	级
+  - kan	看
+  - ke	可
+  - ken	肯
+  - kuai	快
+  - lai	来
+  - mai	买 卖
+  - mie	灭
+  - nan	难
+  - pa	怕
+  - qu	去
+  - sha	啥
+  - ta	他 她 它
+  - tian	天
+  - ting	挺
+  - wei	为
+  - wu	无
+  - xia	下
+  - xing	行
+  - you	有 又
+  # 常用词
+  - bu dui	不对
+  - bu xiang	不想 不像
+  - chang yong	常用
+  - chu shi	出事
+  - dao qi	到期
+  - dui li	对立
+  - ji tian	几天
+  - jing dian	经典
+  - man zu	满足
+  - na hao	那好
+  - qi shi	其实
+  - qing wen	请问
+  - shang hai	上海
+  - shang xian	上线
+  - ta ma	他妈
+  - tai yuan	太远
+  - xia xian	下线
+  - yao shi	要是
+  - yi dian	一点
+  - you guan	有关
+  - yuan li	远离 原理

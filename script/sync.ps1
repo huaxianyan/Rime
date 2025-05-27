@@ -1,0 +1,1 @@
+C:\"Program F"*\Rime\weasel-*.*.*\WeaselDeployer.exe /sync

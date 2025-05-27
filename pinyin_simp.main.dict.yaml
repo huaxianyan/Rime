@@ -15,22 +15,22 @@
 
 ---
 name: pinyin_simp.main
-version: "2020.08.19"
+version: "2019.02.27"
 sort: by_weight
 use_preset_vocabulary: false
 import_tables:
-# 袖珍简化字拼音
-#  - pinyin_simp
 # 英文及中英混输词库
   - cn_en
 # 袖珍简化字拼音自定义词语
   - pinyin_simp_custom
-# 现代汉语常用词表，来源 https://github.com/alswl/Rime
-  - xiandaihanyuchangyongcibiao
-# 肥猫词库，来源 https://github.com/felixonmars/fcitx5-pinyin-zhwiki
-  - zhwiki
+  - cn_dicts/8105
+  - cn_dicts/41448
+  - cn_dicts/base
+  - cn_dicts/ext
+  - cn_dicts/others
 ...
 
+嘚	de	1
 鼥	ba	0
 釛	ba	0
 軷	ba	0
@@ -1725,7 +1725,6 @@ import_tables:
 愍	min	25
 敃	min	29
 憫	min	31
-忞	min	50
 悯	min	50
 岷	min	60
 皿	min	73
@@ -2140,7 +2139,6 @@ import_tables:
 裶	fei	1
 蜰	fei	1
 廃	fei	1
-朏	fei	2
 騑	fei	3
 厞	fei	3
 暃	fei	3
@@ -2213,7 +2211,6 @@ import_tables:
 玸	fu	0
 踾	fu	0
 郙	fu	0
-㳇	fu	1
 蜅	fu	1
 鰒	fu	1
 烰	fu	1
@@ -3142,6 +3139,7 @@ import_tables:
 湍	tuan	43
 团	tuan	7027
 飩	tun	0
+鲀	tun	0
 錪	tun	0
 芚	tun	0
 蜳	tun	0
@@ -14732,7 +14730,6 @@ import_tables:
 沄	yun	6
 勻	yun	6
 煇	yun	7
-赟	yun	10
 贇	yun	10
 氳	yun	10
 纭	yun	13
@@ -15078,9 +15075,7 @@ import_tables:
 卬	yang	6
 怏	yang	7
 暘	yang	8
-旸	yang	8
 蛘	yang	8
-飏	yang	10
 烊	yang	12
 揚	yang	13
 炴	yang	16
@@ -31944,7 +31939,6 @@ import_tables:
 户名	hu ming	122
 护法	hu fa	246
 互访	hu fang	141
-湖㳇	hu fu	1
 护肤	hu fu	496
 湖大	hu da	114
 蝴蝶	hu die	1859
@@ -32992,7 +32986,6 @@ import_tables:
 既无	ji wu	142
 吉安	ji an	123
 激昂	ji ang	206
-饥饿	ji e	639
 吉尔	ji er	153
 继而	ji er	498
 假扮	jia ban	128

@@ -2,7 +2,7 @@
 
 用于管理小狼毫的自动同步和自动重新部署。面向 Windows 10 22H2／Windows 11 的 x64 设备，使用系统包含的 .NET Framework 4.8，无需安装 PowerShell 7 或新版 .NET 运行时。
 
-首次 Release 尚未发布。本地构建与打包方式见下文。
+程序通过 [GitHub Releases](https://github.com/huaxianyan/Rime/releases) 发布，工具版本的标签以 `windows-automation-v` 开头。本地构建与打包方式见下文。
 
 ## 安装与使用
 

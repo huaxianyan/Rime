@@ -80,7 +80,7 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 
 Windows 自动任务工具提供独立的「自动同步」和「自动重新部署」开关，分别设置每日执行时间。到达计划时间时，电脑锁屏也照常执行。安装后可从开始菜单打开，计划每次执行时定位当前小狼毫版本，正常原地升级无需重新设置。
 
-最终程序通过 [GitHub Releases](https://github.com/huaxianyan/Rime/releases) 发布，目前首版尚未发布。面向 Windows 10 22H2／Windows 11 的 x64 设备，使用系统包含的 .NET Framework 4.8，不依赖 PowerShell。
+程序通过 [GitHub Releases](https://github.com/huaxianyan/Rime/releases) 发布，请选择以 `windows-automation-v` 开头的工具版本。面向 Windows 10 22H2／Windows 11 的 x64 设备，使用系统包含的 .NET Framework 4.8，不依赖 PowerShell。
 
 源码在 `windows-automation` 分支维护，详细安装、更新、卸载和开发说明见 [Windows 工具文档](windows/README.md)。本工具只处理 Windows 计划任务，其他平台如有需求将另行发布对应程序。
 

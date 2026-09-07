@@ -44,7 +44,7 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 - ``cn_dicts`` ：第三方词库，由中心词库文件引用使用，来源为项目 [https://github.com/iDvel/rime-ice](https://github.com/iDvel/rime-ice)。
 - ``lua`` ：lua 函数文件，目前仅使用候选固定排序的功能，来源为项目 [https://github.com/iDvel/rime-ice](https://github.com/iDvel/rime-ice)。
 - ``gram``：输入法语法模型，来自万象语法模型，来源为项目 [https://github.com/amzxyz/RIME-LMDG](https://github.com/amzxyz/RIME-LMDG)。
-- ``script``：PowerShell 脚本，为了避免每次小狼毫更新而频繁修改计划任务，来源互联网文字 [Windows上小狼毫输入法的同步设定](https://mengxiangxi.info/BLOG/coding/2024/11/07/Weasels-setting-sync.html)。
+- `windows`：Windows 自动任务工具的源码、测试和构建说明，仅在 `windows-automation` 分支维护。用户使用 Release 中的可执行程序，无需复制源码。
 
 ## 为什么会删除部分字词？
 
@@ -78,5 +78,11 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 
 ### Windows 平台计划任务
 
- 参考 [Windows上小狼毫输入法的同步设定](https://mengxiangxi.info/BLOG/coding/2024/11/07/Weasels-setting-sync.html) 这篇文章。
+Windows 自动任务工具提供独立的「自动同步」和「自动重新部署」开关，支持登录后、锁屏时和每日定时执行。计划每次执行时定位当前小狼毫版本，正常原地升级无需重新设置。
+
+最终程序通过 [GitHub Releases](https://github.com/huaxianyan/Rime/releases) 发布，目前首版尚未发布。面向 Windows 10 22H2／Windows 11 的 x64 设备，使用系统包含的 .NET Framework 4.8，不依赖 PowerShell。
+
+源码在 `windows-automation` 分支维护，详细安装、更新、卸载和开发说明见 [Windows 工具文档](windows/README.md)。本工具只处理 Windows 计划任务，其他平台如有需求将另行发布对应程序。
+
+如果此前按照 [同步设置文章](https://mengxiangxi.info/BLOG/coding/2024/11/07/Weasels-setting-sync.html) 创建过旧任务，请先手动停用，再启用新计划，避免重复执行。
 

@@ -78,5 +78,22 @@ Rime 为简体中文用户专门提供了袖珍简化字拼音，但是默认方
 
 ### Windows 平台计划任务
 
- 参考 [Windows上小狼毫输入法的同步设定](https://mengxiangxi.info/BLOG/coding/2024/11/07/Weasels-setting-sync.html) 这篇文章。
+可以使用本项目的「小狼毫自动任务」程序，分别开启自动同步和自动重新部署，并设置每天的执行时间，无需手动配置 Windows 任务计划程序。
+
+支持 Windows 10 22H2／Windows 11 x64，使用系统包含的 .NET Framework 4.8，不依赖 PowerShell。
+
+1. 前往 [GitHub Releases](https://github.com/huaxianyan/Rime/releases)，选择以 `windows-automation-v` 开头的工具版本，下载 Windows x64 程序包并解压。
+2. 打开 `RimeAutomation.exe`，设置两项功能的开关和每日执行时间。
+3. 点击「安装并保存」。之后可关闭窗口，从开始菜单的「小狼毫自动任务」入口再次打开。
+
+使用时请注意：
+
+- 定时执行需要当前用户已登录，锁屏时也照常执行，登录、锁屏和解锁动作本身不触发执行。
+- 睡眠、休眠、关机或退出登录时无法按当前方式执行，程序不主动唤醒电脑。错过定时时间后，Windows 会在条件允许时补执行。
+- 同步处理用户词典等同步数据，跨设备传输仍需自行配置网盘等工具。重新部署用于使本机方案、配置和词库改动生效，使用网盘同步配置时应等文件下载完成后再部署。
+- 程序每次执行都会定位当前小狼毫版本，正常原地升级小狼毫后无需重新开关或重建计划。
+
+源码在 `windows-automation` 分支维护，安装、更新和卸载方法见 [工具说明](https://github.com/huaxianyan/Rime/blob/windows-automation/windows/README.md)。
+
+如果此前按照 [Windows上小狼毫输入法的同步设定](https://mengxiangxi.info/BLOG/coding/2024/11/07/Weasels-setting-sync.html) 创建过旧任务，请先停用旧任务，再启用本工具的计划，避免重复执行。
 

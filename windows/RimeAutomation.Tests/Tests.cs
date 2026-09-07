@@ -48,17 +48,19 @@ internal static class Tests
             {
                 var operation = Operation.Find(operationId);
                 string taskName = "RimeAutomation-Test-" + id + "-" + operationId;
-                var settings = new Schedule { Enabled = true, Logon = true, Daily = true, Time = new TimeSpan(23, 59, 0) };
+                var settings = new Schedule { Enabled = true, Time = new TimeSpan(23, 59, 0) };
                 store.Save(operation, settings);
                 Schedule loaded = store.Read(operation);
-                Equal(loaded.Enabled && loaded.Logon && loaded.Daily, true, "保存后显示选择的执行时机");
+                Equal(loaded.Enabled, true, "保存后显示已启用的每日计划");
                 Equal(loaded.Time, new TimeSpan(23, 59, 0), "保存后显示选择的定时时间");
                 dynamic task = service.GetFolder(@"\").GetTask(taskName);
                 Equal((string)task.Definition.Actions[1].Path, Path.Combine(root, "installed", "RimeAutomation.exe"), "计划指向安装后的程序");
                 Equal((string)task.Definition.Actions[1].Arguments, "--run " + operationId, "计划参数使用公开的执行入口");
                 Equal((int)task.Definition.Principal.LogonType, 3, "计划使用锁屏期间仍然存在的登录会话");
-                // 回归来源：用户反馈 0.1.0 错把锁屏当作触发动作。模拟已安装旧版的任务。
+                // 回归来源：用户要求只保留定时，移除旧版登录和锁屏触发。
                 dynamic previous = task.Definition;
+                dynamic logonTrigger = previous.Triggers.Create(9);
+                logonTrigger.UserId = AppPaths.UserSid;
                 dynamic lockTrigger = previous.Triggers.Create(11);
                 lockTrigger.UserId = AppPaths.UserSid;
                 lockTrigger.StateChange = 7;
@@ -67,7 +69,7 @@ internal static class Tests
                 task = service.GetFolder(@"\").GetTask(taskName);
                 var triggerTypes = new System.Collections.Generic.List<int>();
                 foreach (dynamic trigger in task.Definition.Triggers) triggerTypes.Add((int)trigger.Type);
-                Equal(string.Join(",", triggerTypes.OrderBy(type => type)), "2,9", "更新旧计划后只按每日定时和登录执行，锁屏动作不触发");
+                Equal(string.Join(",", triggerTypes.OrderBy(type => type)), "2", "更新旧计划后只按每日定时执行，登录和锁屏不触发");
                 Equal(store.Read(operation).Time, new TimeSpan(23, 59, 0), "更新旧计划保留原来的定时时间");
                 RunTask(task, 0);
                 Equal(File.ReadAllLines(Path.Combine(root, "runs.txt")).Contains("old /" + operationId), true, "计划执行当前安装版本");
@@ -75,12 +77,11 @@ internal static class Tests
                 RunTask(task, 0);
                 Equal(File.ReadAllLines(Path.Combine(root, "runs.txt")).Contains("new /" + operationId), true, "保留旧目录且不重建任务，升级后执行新版本");
                 settings.Enabled = false;
-                settings.Daily = false;
                 settings.Time = new TimeSpan(19, 10, 0);
                 store.Save(operation, settings);
                 loaded = store.Read(operation);
                 Equal(loaded.Enabled, false, "用户关闭自动功能后计划停用");
-                Equal(loaded.Logon && !loaded.Daily, true, "修改后的执行时机可恢复");
+                Equal(loaded.Time, new TimeSpan(19, 10, 0), "停用后仍保留修改后的定时时间");
                 settings.Enabled = true;
                 store.Save(operation, settings);
                 Equal(store.Read(operation).Enabled, true, "用户重新开启后计划生效");
@@ -92,7 +93,7 @@ internal static class Tests
             }
             // 更新已安装的工具不改变现有任务的触发设置。
             new Installer(paths).Install(AppPaths.CurrentExecutable);
-            Equal(store.Read(Operation.Find("sync")).Logon, true, "更新程序后保留任务设置");
+            Equal(store.Read(Operation.Find("sync")).Time, new TimeSpan(19, 10, 0), "更新程序后保留定时时间");
             Equal(Directory.GetFiles(paths.Directory, "update-*.exe").Length, 0, "更新完成后临时程序已清理");
             VerifyInstallerReplacement(root);
             VerifyManualWindow(paths, store);

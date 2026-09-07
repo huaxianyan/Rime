@@ -26,17 +26,10 @@ namespace RimeAutomation
     {
         public bool Exists;
         public bool Enabled;
-        public bool Logon = true;
-        public bool Daily;
         public TimeSpan Time = new TimeSpan(20, 0, 0);
         public string Status = "尚未创建计划";
         public static Schedule Initial(Operation operation)
         { return new Schedule { Enabled = operation.InitiallyEnabled }; }
-        public void Validate()
-        {
-            if (Enabled && !Logon && !Daily)
-                throw new UserError("请为已开启的功能至少选择一种执行时机。");
-        }
     }
 
     internal sealed class UserError : Exception

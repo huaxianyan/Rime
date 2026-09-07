@@ -28,7 +28,7 @@ namespace RimeAutomation
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Add(new Label { Text = "同步与重新部署分别设置。到达计划时间时，电脑锁屏也照常执行。" }, 18, 14, 644, 32);
+            Add(new Label { Text = "定时执行需要用户已登录，电脑锁屏时也照常执行。" }, 18, 14, 644, 32);
             int top = 52;
             foreach (Operation operation in Operation.All)
             {
@@ -82,7 +82,6 @@ namespace RimeAutomation
                 foreach (var item in rows)
                 {
                     Schedule schedule = item.Value.Read();
-                    schedule.Validate();
                     // 在安装及写入前检查全部计划的归属。
                     store.Read(item.Key);
                     pending.Add(item.Key, schedule);
@@ -144,8 +143,6 @@ namespace RimeAutomation
         {
             public readonly GroupBox Group = new GroupBox();
             public readonly CheckBox Enabled = new CheckBox { Text = "启用" };
-            public readonly CheckBox Logon = new CheckBox { Text = "登录 Windows 后" };
-            public readonly CheckBox Daily = new CheckBox { Text = "每天定时" };
             public readonly DateTimePicker Time = new DateTimePicker { Format = DateTimePickerFormat.Custom, CustomFormat = "HH:mm", ShowUpDown = true };
             public readonly Label Status = new Label();
             public readonly Button Run = new Button();
@@ -154,9 +151,8 @@ namespace RimeAutomation
                 Group.Text = "自动" + operation.Label;
                 Put(Enabled, 545, 22, 80, 28);
                 Put(new Label { Text = operation.Description }, 14, 28, 520, 26);
-                Put(Logon, 14, 68, 185, 28);
-                Put(Daily, 250, 68, 105, 28);
-                Put(Time, 370, 68, 117, 28);
+                Put(new Label { Text = "每天" }, 14, 72, 50, 24);
+                Put(Time, 70, 68, 117, 28);
                 Status.Name = "Status-" + operation.Id;
                 Put(Status, 14, 109, 610, 48);
                 Run.Text = "立即" + operation.Label;
@@ -166,11 +162,10 @@ namespace RimeAutomation
             private void Put(Control control, int x, int y, int width, int height)
             { control.SetBounds(x, y, width, height); Group.Controls.Add(control); }
             public Schedule Read()
-            { return new Schedule { Enabled = Enabled.Checked, Logon = Logon.Checked, Daily = Daily.Checked, Time = Time.Value.TimeOfDay }; }
+            { return new Schedule { Enabled = Enabled.Checked, Time = Time.Value.TimeOfDay }; }
             public void Load(Schedule settings)
             {
-                Enabled.Checked = settings.Enabled; Logon.Checked = settings.Logon;
-                Daily.Checked = settings.Daily;
+                Enabled.Checked = settings.Enabled;
                 Time.Value = DateTime.Today.Add(settings.Time); Status.Text = settings.Status;
             }
         }

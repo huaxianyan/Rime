@@ -38,16 +38,15 @@ namespace RimeAutomation
         {
             dynamic task = Find(operation);
             if (task == null) return Schedule.Initial(operation);
-            var result = new Schedule { Exists = true, Enabled = task.Enabled, Logon = false };
-            bool hasPreviousLockTrigger = false;
+            var result = new Schedule { Exists = true, Enabled = task.Enabled };
+            bool hasPreviousTrigger = false;
             foreach (dynamic trigger in task.Definition.Triggers)
             {
                 switch ((int)trigger.Type)
                 {
-                    case 9: result.Logon = true; break;
-                    case 11: hasPreviousLockTrigger = (int)trigger.StateChange == 7; break;
+                    case 9:
+                    case 11: hasPreviousTrigger = true; break;
                     case 2:
-                        result.Daily = true;
                         result.Time = DateTime.Parse((string)trigger.StartBoundary, CultureInfo.InvariantCulture).TimeOfDay;
                         break;
                 }
@@ -55,14 +54,13 @@ namespace RimeAutomation
             result.Status = Results.Text((int)task.LastTaskResult);
             DateTime lastRun = task.LastRunTime;
             if (lastRun.Year > 2000) result.Status = lastRun.ToString("yyyy-MM-dd HH:mm") + "  " + result.Status;
-            if (hasPreviousLockTrigger)
-                result.Status = "原计划包含「锁屏时执行」。请选择所需时机并保存，更新原计划。";
+            if (hasPreviousTrigger)
+                result.Status = "原计划包含登录或锁屏时执行。请确认每日执行时间并保存，更新原计划。";
             return result;
         }
 
         public void Save(Operation operation, Schedule settings)
         {
-            settings.Validate();
             dynamic existing = Find(operation);
             if (!settings.Enabled && existing == null) return;
             dynamic definition = service.NewTask(0);
@@ -77,18 +75,9 @@ namespace RimeAutomation
             definition.Settings.StopIfGoingOnBatteries = false;
             definition.Settings.StartWhenAvailable = true;
             definition.Settings.ExecutionTimeLimit = "PT0S"; // 不强行打断词典写入。
-            if (settings.Logon)
-            {
-                dynamic trigger = definition.Triggers.Create(9);
-                trigger.UserId = AppPaths.UserSid;
-                trigger.Delay = "PT30S";
-            }
-            if (settings.Daily)
-            {
-                dynamic trigger = definition.Triggers.Create(2);
-                trigger.DaysInterval = 1;
-                trigger.StartBoundary = DateTime.Today.Add(settings.Time).ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
-            }
+            dynamic daily = definition.Triggers.Create(2);
+            daily.DaysInterval = 1;
+            daily.StartBoundary = DateTime.Today.Add(settings.Time).ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
             dynamic action = definition.Actions.Create(0);
             action.Path = paths.Executable;
             action.Arguments = CommandLine.Arguments(operation);

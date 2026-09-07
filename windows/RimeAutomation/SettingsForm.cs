@@ -21,14 +21,14 @@ namespace RimeAutomation
         public SettingsForm(AppPaths paths, TaskStore store, string source)
         {
             this.paths = paths; this.store = store; this.source = source;
-            Text = "小狼毫自动任务";
+            Text = AppPaths.DisplayName;
             Font = new Font("Microsoft YaHei UI", 10F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(680, 640);
+            ClientSize = new Size(680, 600);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Add(new Label { Text = "同步与重新部署分别设置，保存后生效。仅在当前用户登录期间运行。" }, 18, 14, 644, 32);
+            Add(new Label { Text = "同步与重新部署分别设置。到达计划时间时，电脑锁屏也照常执行。" }, 18, 14, 644, 32);
             int top = 52;
             foreach (Operation operation in Operation.All)
             {
@@ -42,22 +42,19 @@ namespace RimeAutomation
             Add(new Label {
                 Text = "同步位置请在 Rime 用户文件夹的 installation.yaml 中确认。使用网盘同步配置时，请在文件下载完成后重新部署。"
             }, 18, 494, 644, 48);
-            var location = new LinkLabel { Text = "安装位置：" + paths.Directory, AutoEllipsis = true };
-            location.LinkClicked += (sender, args) => OpenInstallDirectory();
-            Add(location, 18, 546, 644, 28);
             remove.Text = "移除所有计划";
             remove.Click += (sender, args) => RemoveSchedules();
-            Add(remove, 18, 591, 138, 32);
+            Add(remove, 18, 551, 138, 32);
             var refresh = new Button { Text = "刷新状态" };
             refresh.Click += (sender, args) => RefreshStatus();
-            Add(refresh, 170, 591, 110, 32);
+            Add(refresh, 170, 551, 110, 32);
             var close = new Button { Text = "关闭" };
             close.Click += (sender, args) => Close();
-            Add(close, 392, 591, 100, 32);
+            Add(close, 392, 551, 100, 32);
             save.Text = paths.IsInstalledExecutable(source) ? "保存设置" :
                 File.Exists(paths.Executable) ? "更新程序并保存" : "安装并保存";
             save.Click += (sender, args) => SaveSchedules();
-            Add(save, 506, 591, 156, 32);
+            Add(save, 506, 551, 156, 32);
             LoadSchedules();
         }
 
@@ -91,12 +88,12 @@ namespace RimeAutomation
                     pending.Add(item.Key, schedule);
                 }
                 if (!paths.IsInstalledExecutable(source) && MessageBox.Show(this,
-                    "程序将安装或更新到：\n" + paths.Directory + "\n\n当前选择的计划也会一并保存，是否继续？",
+                    "程序将在这台电脑上安装或更新，并保存当前选择的计划，是否继续？",
                     Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK) return;
                 new Installer(paths).Install(source);
                 foreach (var item in pending) store.Save(item.Key, item.Value);
                 LoadSchedules();
-                Tell("设置已保存。关闭此窗口后，Windows 仍会按计划执行。\n以后可以从安装目录打开程序，或下载新版程序进行更新。");
+                Tell("设置已保存。关闭此窗口后，Windows 仍会按计划执行。\n以后可从开始菜单打开「" + AppPaths.DisplayName + "」。");
             }
             catch (Exception error)
             {
@@ -111,15 +108,9 @@ namespace RimeAutomation
             {
                 foreach (Operation operation in Operation.All) store.Remove(operation);
                 LoadSchedules();
-                Tell("计划已移除。词库和配置保留在原位置。\n如需卸载工具，请打开安装位置，关闭本窗口后删除 RimeAutomation.exe。");
+                Tell("计划已移除。词库和配置保留在原位置。开始菜单中的程序入口仍可使用。");
             }
             catch (Exception error) { Report(error, "未能移除全部计划。请在 Windows 任务计划程序中检查后重试。"); }
-        }
-        private void OpenInstallDirectory()
-        {
-            if (!Directory.Exists(paths.Directory)) { Tell("程序尚未安装。点击「安装并保存」后，可以在这里打开安装目录。"); return; }
-            try { Process.Start(new ProcessStartInfo(paths.Directory) { UseShellExecute = true }); }
-            catch { Tell("无法打开安装目录。请在文件资源管理器中打开以下位置：\n" + paths.Directory); }
         }
         private async Task RunNow(Operation operation)
         {
@@ -154,7 +145,6 @@ namespace RimeAutomation
             public readonly GroupBox Group = new GroupBox();
             public readonly CheckBox Enabled = new CheckBox { Text = "启用" };
             public readonly CheckBox Logon = new CheckBox { Text = "登录 Windows 后" };
-            public readonly CheckBox Lock = new CheckBox { Text = "锁定电脑时" };
             public readonly CheckBox Daily = new CheckBox { Text = "每天定时" };
             public readonly DateTimePicker Time = new DateTimePicker { Format = DateTimePickerFormat.Custom, CustomFormat = "HH:mm", ShowUpDown = true };
             public readonly Label Status = new Label();
@@ -165,9 +155,8 @@ namespace RimeAutomation
                 Put(Enabled, 545, 22, 80, 28);
                 Put(new Label { Text = operation.Description }, 14, 28, 520, 26);
                 Put(Logon, 14, 68, 185, 28);
-                Put(Lock, 215, 68, 155, 28);
-                Put(Daily, 390, 68, 105, 28);
-                Put(Time, 507, 68, 117, 28);
+                Put(Daily, 250, 68, 105, 28);
+                Put(Time, 370, 68, 117, 28);
                 Status.Name = "Status-" + operation.Id;
                 Put(Status, 14, 109, 610, 48);
                 Run.Text = "立即" + operation.Label;
@@ -177,11 +166,11 @@ namespace RimeAutomation
             private void Put(Control control, int x, int y, int width, int height)
             { control.SetBounds(x, y, width, height); Group.Controls.Add(control); }
             public Schedule Read()
-            { return new Schedule { Enabled = Enabled.Checked, Logon = Logon.Checked, Lock = Lock.Checked, Daily = Daily.Checked, Time = Time.Value.TimeOfDay }; }
+            { return new Schedule { Enabled = Enabled.Checked, Logon = Logon.Checked, Daily = Daily.Checked, Time = Time.Value.TimeOfDay }; }
             public void Load(Schedule settings)
             {
                 Enabled.Checked = settings.Enabled; Logon.Checked = settings.Logon;
-                Lock.Checked = settings.Lock; Daily.Checked = settings.Daily;
+                Daily.Checked = settings.Daily;
                 Time.Value = DateTime.Today.Add(settings.Time); Status.Text = settings.Status;
             }
         }

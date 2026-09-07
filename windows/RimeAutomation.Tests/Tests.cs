@@ -21,13 +21,13 @@ internal static class Tests
         }
         if (args.Length > 0 && args[0] == "--run")
         {
-            var context = new AppPaths(here, File.ReadAllText(Path.Combine(here, "identity.txt")));
+            var context = new AppPaths(here, File.ReadAllText(Path.Combine(here, "identity.txt")), Path.Combine(here, "menu"));
             return CommandLine.Execute(args, new OperationRunner(context,
                 () => File.ReadAllText(Path.Combine(here, "installation.txt"))));
         }
         string id = Guid.NewGuid().ToString("N");
         string root = Path.Combine(Path.GetTempPath(), "Rime binary 测试 " + id);
-        var paths = new AppPaths(Path.Combine(root, "installed"), "Test-" + id);
+        var paths = new AppPaths(Path.Combine(root, "installed"), "Test-" + id, Path.Combine(root, "menu"));
         TaskStore store = null;
         dynamic service = null;
         int outcome = 0;
@@ -35,6 +35,7 @@ internal static class Tests
         {
             Directory.CreateDirectory(root);
             new Installer(paths).Install(AppPaths.CurrentExecutable);
+            VerifyShortcut(Path.Combine(root, "menu", "小狼毫自动任务.lnk"), Path.Combine(root, "installed", "RimeAutomation.exe"));
             File.WriteAllText(Path.Combine(paths.Directory, "identity.txt"), "Test-" + id);
             string old = MakeFixture(root, "old");
             string current = MakeFixture(root, "new");
@@ -47,15 +48,27 @@ internal static class Tests
             {
                 var operation = Operation.Find(operationId);
                 string taskName = "RimeAutomation-Test-" + id + "-" + operationId;
-                var settings = new Schedule { Enabled = true, Logon = true, Lock = true, Daily = true, Time = new TimeSpan(23, 59, 0) };
+                var settings = new Schedule { Enabled = true, Logon = true, Daily = true, Time = new TimeSpan(23, 59, 0) };
                 store.Save(operation, settings);
                 Schedule loaded = store.Read(operation);
-                Equal(loaded.Enabled && loaded.Logon && loaded.Lock && loaded.Daily, true, "保存后显示选择的执行时机");
+                Equal(loaded.Enabled && loaded.Logon && loaded.Daily, true, "保存后显示选择的执行时机");
                 Equal(loaded.Time, new TimeSpan(23, 59, 0), "保存后显示选择的定时时间");
                 dynamic task = service.GetFolder(@"\").GetTask(taskName);
                 Equal((string)task.Definition.Actions[1].Path, Path.Combine(root, "installed", "RimeAutomation.exe"), "计划指向安装后的程序");
                 Equal((string)task.Definition.Actions[1].Arguments, "--run " + operationId, "计划参数使用公开的执行入口");
-                Equal((int)task.Definition.Principal.LogonType, 3, "计划使用当前用户登录会话");
+                Equal((int)task.Definition.Principal.LogonType, 3, "计划使用锁屏期间仍然存在的登录会话");
+                // 回归来源：用户反馈 0.1.0 错把锁屏当作触发动作。模拟已安装旧版的任务。
+                dynamic previous = task.Definition;
+                dynamic lockTrigger = previous.Triggers.Create(11);
+                lockTrigger.UserId = AppPaths.UserSid;
+                lockTrigger.StateChange = 7;
+                service.GetFolder(@"\").RegisterTaskDefinition(taskName, previous, 6, AppPaths.UserSid, null, 3);
+                store.Save(operation, store.Read(operation));
+                task = service.GetFolder(@"\").GetTask(taskName);
+                var triggerTypes = new System.Collections.Generic.List<int>();
+                foreach (dynamic trigger in task.Definition.Triggers) triggerTypes.Add((int)trigger.Type);
+                Equal(string.Join(",", triggerTypes.OrderBy(type => type)), "2,9", "更新旧计划后只按每日定时和登录执行，锁屏动作不触发");
+                Equal(store.Read(operation).Time, new TimeSpan(23, 59, 0), "更新旧计划保留原来的定时时间");
                 RunTask(task, 0);
                 Equal(File.ReadAllLines(Path.Combine(root, "runs.txt")).Contains("old /" + operationId), true, "计划执行当前安装版本");
                 File.WriteAllText(pointer, current);
@@ -63,12 +76,11 @@ internal static class Tests
                 Equal(File.ReadAllLines(Path.Combine(root, "runs.txt")).Contains("new /" + operationId), true, "保留旧目录且不重建任务，升级后执行新版本");
                 settings.Enabled = false;
                 settings.Daily = false;
-                settings.Lock = false;
                 settings.Time = new TimeSpan(19, 10, 0);
                 store.Save(operation, settings);
                 loaded = store.Read(operation);
                 Equal(loaded.Enabled, false, "用户关闭自动功能后计划停用");
-                Equal(loaded.Logon && !loaded.Lock && !loaded.Daily, true, "修改后的执行时机可恢复");
+                Equal(loaded.Logon && !loaded.Daily, true, "修改后的执行时机可恢复");
                 settings.Enabled = true;
                 store.Save(operation, settings);
                 Equal(store.Read(operation).Enabled, true, "用户重新开启后计划生效");
@@ -140,9 +152,17 @@ internal static class Tests
         } while ((int)instance.State == 2 || (int)instance.State == 4);
         Equal((int)task.LastTaskResult, expectedResult, "任务反馈实际执行结果");
     }
+    private static void VerifyShortcut(string shortcutFile, string expectedExecutable)
+    {
+        Equal(File.Exists(shortcutFile), true, "安装后生成开始菜单入口");
+        dynamic shell = Activator.CreateInstance(Type.GetTypeFromProgID("WScript.Shell", true));
+        dynamic shortcut = shell.CreateShortcut(shortcutFile);
+        try { Equal((string)shortcut.TargetPath, expectedExecutable, "开始菜单入口指向已安装的程序"); }
+        finally { Marshal.FinalReleaseComObject(shortcut); Marshal.FinalReleaseComObject(shell); }
+    }
     private static void VerifyInstallerReplacement(string root)
     {
-        var target = new AppPaths(Path.Combine(root, "replacement"), "Replace-" + Guid.NewGuid().ToString("N"));
+        var target = new AppPaths(Path.Combine(root, "replacement"), "Replace-" + Guid.NewGuid().ToString("N"), Path.Combine(root, "replacement-menu"));
         string input = Path.Combine(root, "input.exe");
         File.WriteAllText(input, "first release");
         new Installer(target).Install(input);

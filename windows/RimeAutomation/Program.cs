@@ -21,7 +21,7 @@ namespace RimeAutomation
                 catch (AbandonedMutexException) { acquired = true; }
                 if (!acquired)
                 {
-                    MessageBox.Show("设置窗口已经打开。请先关闭原窗口，再打开此程序。", "小狼毫自动任务");
+                    MessageBox.Show("设置窗口已经打开。请先关闭原窗口，再打开此程序。", AppPaths.DisplayName);
                     return Results.Busy;
                 }
                 try
@@ -34,7 +34,7 @@ namespace RimeAutomation
                 catch (Exception error)
                 {
                     MessageBox.Show(error is UserError ? error.Message :
-                        "无法打开自动任务设置。请确认 Windows 任务计划程序服务正常运行，然后重试。", "小狼毫自动任务");
+                        "无法打开自动任务设置。请确认 Windows 任务计划程序服务正常运行，然后重试。", AppPaths.DisplayName);
                     return Results.Failed;
                 }
                 finally { window.ReleaseMutex(); }

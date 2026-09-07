@@ -39,12 +39,13 @@ namespace RimeAutomation
             dynamic task = Find(operation);
             if (task == null) return Schedule.Initial(operation);
             var result = new Schedule { Exists = true, Enabled = task.Enabled, Logon = false };
+            bool hasPreviousLockTrigger = false;
             foreach (dynamic trigger in task.Definition.Triggers)
             {
                 switch ((int)trigger.Type)
                 {
                     case 9: result.Logon = true; break;
-                    case 11: result.Lock = (int)trigger.StateChange == 7; break;
+                    case 11: hasPreviousLockTrigger = (int)trigger.StateChange == 7; break;
                     case 2:
                         result.Daily = true;
                         result.Time = DateTime.Parse((string)trigger.StartBoundary, CultureInfo.InvariantCulture).TimeOfDay;
@@ -54,6 +55,8 @@ namespace RimeAutomation
             result.Status = Results.Text((int)task.LastTaskResult);
             DateTime lastRun = task.LastRunTime;
             if (lastRun.Year > 2000) result.Status = lastRun.ToString("yyyy-MM-dd HH:mm") + "  " + result.Status;
+            if (hasPreviousLockTrigger)
+                result.Status = "原计划包含「锁屏时执行」。请选择所需时机并保存，更新原计划。";
             return result;
         }
 
@@ -66,7 +69,7 @@ namespace RimeAutomation
             definition.RegistrationInfo.Source = Owner;
             definition.RegistrationInfo.Description = "小狼毫自动" + operation.Label + "，由 Rime 自动任务设置管理。";
             definition.Principal.UserId = AppPaths.UserSid;
-            definition.Principal.LogonType = 3; // 当前用户登录会话，不保存密码。
+            definition.Principal.LogonType = 3; // 锁屏仍属于已登录会话，到计划时间照常执行。
             definition.Principal.RunLevel = 0;
             definition.Settings.Enabled = settings.Enabled;
             definition.Settings.MultipleInstances = 2; // 同一计划仍在执行时不重复启动。
@@ -79,12 +82,6 @@ namespace RimeAutomation
                 dynamic trigger = definition.Triggers.Create(9);
                 trigger.UserId = AppPaths.UserSid;
                 trigger.Delay = "PT30S";
-            }
-            if (settings.Lock)
-            {
-                dynamic trigger = definition.Triggers.Create(11);
-                trigger.UserId = AppPaths.UserSid;
-                trigger.StateChange = 7;
             }
             if (settings.Daily)
             {

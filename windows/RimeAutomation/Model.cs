@@ -27,15 +27,14 @@ namespace RimeAutomation
         public bool Exists;
         public bool Enabled;
         public bool Logon = true;
-        public bool Lock;
         public bool Daily;
         public TimeSpan Time = new TimeSpan(20, 0, 0);
         public string Status = "尚未创建计划";
         public static Schedule Initial(Operation operation)
-        { return new Schedule { Enabled = operation.InitiallyEnabled, Lock = operation.InitiallyEnabled }; }
+        { return new Schedule { Enabled = operation.InitiallyEnabled }; }
         public void Validate()
         {
-            if (Enabled && !Logon && !Lock && !Daily)
+            if (Enabled && !Logon && !Daily)
                 throw new UserError("请为已开启的功能至少选择一种执行时机。");
         }
     }
@@ -64,19 +63,25 @@ namespace RimeAutomation
 
     internal sealed class AppPaths
     {
+        public const string DisplayName = "小狼毫自动任务";
         public readonly string Directory;
         public readonly string Identity;
+        public readonly string Shortcut;
         public string Executable { get { return Path.Combine(Directory, "RimeAutomation.exe"); } }
         public string TaskPrefix { get { return "RimeAutomation-" + Identity + "-"; } }
         public string ExecutionMutex { get { return @"Local\RimeAutomation-" + Identity; } }
         public string WindowMutex { get { return ExecutionMutex + "-Settings"; } }
         public static string UserSid { get { return WindowsIdentity.GetCurrent().User.Value; } }
         public static string CurrentExecutable { get { return Assembly.GetEntryAssembly().Location; } }
-        public AppPaths(string directory, string identity) { Directory = directory; Identity = identity; }
+        public AppPaths(string directory, string identity, string startMenuDirectory)
+        {
+            Directory = directory; Identity = identity;
+            Shortcut = Path.Combine(startMenuDirectory, DisplayName + ".lnk");
+        }
         public static AppPaths Current()
         {
             return new AppPaths(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "RimeAutomation"), UserSid);
+                "RimeAutomation"), UserSid, Environment.GetFolderPath(Environment.SpecialFolder.Programs));
         }
         public bool IsInstalledExecutable(string source)
         { return string.Equals(Path.GetFullPath(source), Path.GetFullPath(Executable), StringComparison.OrdinalIgnoreCase); }
